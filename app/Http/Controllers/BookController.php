@@ -12,4 +12,18 @@ class BookController extends Controller
 
         return view('books.index',['allBooks' => $books]);
     }
+
+    public function create(){
+        return view('books.create');
+    }
+
+    public function store(Request $request){
+        Book::create([
+            'title' => $request->title,
+            'author' => $request->author,
+            'description' => $request->description,
+            'user_id' => 1
+        ]);
+        return redirect('/books');
+    }
 }
