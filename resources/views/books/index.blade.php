@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Shelf - Dinushka</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light">
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -31,11 +33,19 @@
                                 <td class="fw-semibold">{{ $book->title }}</td>
                                 <td>{{ $book->author }}</td>
                                 <td class="text-center">
-                                    <a href="/books/{{ $book->id }}/edit" class="btn btn-sm btn-outline-info">Edit</a>
-                                    
-                                    <form action="/books/{{ $book->id }}/delete" method="POST" style="display:inline;">
+                                    <form action="/books/{{ $book->id }}/delete" method="POST"
+                                        style="display:inline;">
                                         @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Do you need to delete this book?')">Delete</button>
+                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                            onclick="return confirm('මෙම පොත මකා දැමීමට ඔබට ස්ථිරද?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                    <form action="/books/{{ $book->id }}/delete" method="POST"
+                                        style="display:inline;">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-danger"
+                                            onclick="return confirm('Do you need to delete this book?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
@@ -51,4 +61,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -16,3 +16,6 @@ Route::post('/books', [BookController::class, 'store']);
 Route::get('/books/{id}/edit',[BookController::class, 'edit']);
 
 Route::post('/books/{id}', [BookController::class, 'update']);
+
+Route::post('/books/{id}/delete', [BookController::class, 'destroy']);
+
