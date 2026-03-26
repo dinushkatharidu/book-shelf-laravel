@@ -32,20 +32,19 @@
                                 <td class="ps-4 text-muted">#{{ $book->id }}</td>
                                 <td class="fw-semibold">{{ $book->title }}</td>
                                 <td>{{ $book->author }}</td>
+
                                 <td class="text-center">
+                                    <a href="/books/{{ $book->id }}/edit" class="btn btn-sm btn-outline-info me-2">
+                                        Edit
+                                    </a>
+
                                     <form action="/books/{{ $book->id }}/delete" method="POST"
                                         style="display:inline;">
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-outline-danger"
-                                            onclick="return confirm('මෙම පොත මකා දැමීමට ඔබට ස්ථිරද?')">
+                                            onclick="return confirm('Are You Sure?')">
                                             Delete
                                         </button>
-                                    </form>
-                                    <form action="/books/{{ $book->id }}/delete" method="POST"
-                                        style="display:inline;">
-                                        @csrf
-                                        <button type="submit" class="btn btn-sm btn-outline-danger"
-                                            onclick="return confirm('Do you need to delete this book?')">Delete</button>
                                     </form>
                                 </td>
                             </tr>
