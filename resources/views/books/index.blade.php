@@ -37,7 +37,6 @@
                                     <a href="/books/{{ $book->id }}/edit" class="btn btn-sm btn-outline-info me-2">
                                         Edit
                                     </a>
-
                                     <form action="/books/{{ $book->id }}/delete" method="POST"
                                         style="display:inline;">
                                         @csrf
