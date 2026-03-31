@@ -14,7 +14,13 @@
             <h1 class="text-primary fw-bold">My Books Shelf 📚</h1>
             <a href="/books/create" class="btn btn-success shadow-sm">+ Add New Book</a>
         </div>
-
+        <div class="container mt-5">
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            @endif
+        </div>
         <div class="card shadow-sm border-0">
             <div class="card-body p-0">
                 <table class="table table-hover mb-0">
@@ -58,6 +64,23 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        
+        const alert = document.querySelector('.alert');
+        
+        if (alert) {
+            
+            setTimeout(function() {
+                
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }, 10000); 
+        }
+    });
+    </script>
+</body>
 </body>
 
 </html>

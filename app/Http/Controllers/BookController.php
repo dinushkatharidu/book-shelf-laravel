@@ -34,7 +34,7 @@ class BookController extends Controller
             'description' => $request->description,
             'user_id' => 1
         ]);
-        return redirect('/books');
+        return redirect('/books')->with('success', "Book Stored Successfuly!");
     }
 
     public function edit($id)
@@ -63,13 +63,13 @@ class BookController extends Controller
             'description' => $request->description,
         ]);
 
-        return redirect('/books');
+        return redirect('/books')->with('success', "Book Details Changed Successfuly");
     }
 
     public function destroy($id){
         $book = Book::findOrFail($id);
         $book->delete();
-        return redirect('/books');
+        return redirect('/books')->with('success', "Book Removed Succesfuly!");
     }
 
 }
