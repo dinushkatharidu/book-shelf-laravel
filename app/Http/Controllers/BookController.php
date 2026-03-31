@@ -50,6 +50,12 @@ class BookController extends Controller
 
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'title' => 'required|min:3',
+            'author' => 'required',
+        ]);
+
         $book = Book::findOrFail($id);
         $book->update([
             'title' => $request->title,

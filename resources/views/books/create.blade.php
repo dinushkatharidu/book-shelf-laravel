@@ -11,28 +11,34 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                
+
                 <div class="card shadow border-0">
                     <div class="card-header bg-primary text-white p-3">
                         <h4 class="mb-0">Add New Book 📖</h4>
                     </div>
                     <div class="card-body p-4">
                         <form action="/books" method="POST">
-                            @csrf 
-                            
+                            @csrf
+
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Title</label>
-                                <input type="text" name="title" class="form-control" placeholder="Enter book title" required>
+                                <input type="text" name="title" value="{{old('title')}}" class="form-control" placeholder="Enter book title" >
+                                @error('title')
+                                    <div class="text-danger small">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Author</label>
-                                <input type="text" name="author" class="form-control" placeholder="Enter author name" required>
+                                <input type="text" name="author" value="{{old('author')}}" class="form-control" placeholder="Enter author name" >
+                                @error('author')
+                                    <div class="text-danger small">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Description</label>
-                                <textarea name="description" class="form-control" rows="4" placeholder="Briefly describe the book"></textarea>
+                                <textarea name="description"  class="form-control" rows="4" placeholder="Briefly describe the book"></textarea>
                             </div>
 
                             <div class="d-grid gap-2">
