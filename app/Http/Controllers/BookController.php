@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::all();
+        $books = Book::where('user_id', auth()->id())->get();
 
         return view('books.index', ['allBooks' => $books]);
     }
@@ -32,7 +33,7 @@ class BookController extends Controller
             'title' => $request->title,
             'author' => $request->author,
             'description' => $request->description,
-            'user_id' => 1
+            'user_id' => auth()->id()
         ]);
         return redirect('/books')->with('success', "Book Stored Successfuly!");
     }
@@ -41,8 +42,8 @@ class BookController extends Controller
     {
         $book = Book::find($id);
 
-        if(!$book){
-            return "Database id ".$id . "is not Found";
+        if (!$book) {
+            return "Database id " . $id . "is not Found";
         }
 
         return view('books.edit', ['book' => $book]);
@@ -66,10 +67,10 @@ class BookController extends Controller
         return redirect('/books')->with('success', "Book Details Changed Successfuly");
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $book = Book::findOrFail($id);
         $book->delete();
         return redirect('/books')->with('success', "Book Removed Succesfuly!");
     }
-
 }

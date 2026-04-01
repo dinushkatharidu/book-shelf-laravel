@@ -67,19 +67,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        
+
         const alert = document.querySelector('.alert');
-        
+
         if (alert) {
-            
+
             setTimeout(function() {
-                
+
                 const bsAlert = new bootstrap.Alert(alert);
                 bsAlert.close();
-            }, 10000); 
+            }, 10000);
         }
     });
     </script>
+
 </body>
 </body>
 
