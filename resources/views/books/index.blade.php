@@ -9,6 +9,20 @@
 </head>
 
 <body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/books">📚 My BookShelf</a>
+
+            <div class="d-flex align-items-center">
+                <span class="text-white me-3">Hi, {{ Auth::user()->name }}!</span>
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+                </form>
+            </div>
+        </div>
+    </nav>
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="text-primary fw-bold">My Books Shelf 📚</h1>
@@ -68,20 +82,20 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-        const alert = document.querySelector('.alert');
+            const alert = document.querySelector('.alert');
 
-        if (alert) {
+            if (alert) {
 
-            setTimeout(function() {
+                setTimeout(function() {
 
-                const bsAlert = new bootstrap.Alert(alert);
-                bsAlert.close();
-            }, 10000);
-        }
-    });
+                    const bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                }, 10000);
+            }
+        });
     </script>
 
-</body>
+
 </body>
 
 </html>
