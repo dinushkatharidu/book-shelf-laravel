@@ -40,10 +40,10 @@ class BookController extends Controller
 
     public function edit($id)
     {
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
 
-        if (!$book) {
-            return "Database id " . $id . "is not Found";
+        if ($book->user_id !== auth()->id()) {
+            abort(403, 'Unauthrized Action');
         }
 
         return view('books.edit', ['book' => $book]);
@@ -58,6 +58,11 @@ class BookController extends Controller
         ]);
 
         $book = Book::findOrFail($id);
+
+        if($book->user_id !== auth()->id()){
+            abort(403, 'Unautharized Action');
+        }
+
         $book->update([
             'title' => $request->title,
             'author' => $request->author,
@@ -70,6 +75,11 @@ class BookController extends Controller
     public function destroy($id)
     {
         $book = Book::findOrFail($id);
+
+        if($book->user_id !== auth()->id()){
+            abort(403, 'Unautharized Action!');
+        }
+
         $book->delete();
         return redirect('/books')->with('success', "Book Removed Succesfuly!");
     }
