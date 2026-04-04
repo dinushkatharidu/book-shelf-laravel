@@ -41,6 +41,7 @@
                     <thead class="table-dark">
                         <tr>
                             <th class="ps-4">ID</th>
+                            <th>Cover</th>
                             <th>Title</th>
                             <th>Author</th>
                             <th class="text-center">Action</th>
@@ -49,7 +50,19 @@
                     <tbody>
                         @foreach ($allBooks as $book)
                             <tr>
+
                                 <td class="ps-4 text-muted">#{{ $book->id }}</td>
+                                <td>
+                                    @if ($book->image)
+                                        <img src="{{ asset('storage/' . $book->image) }}" alt="Cover" width="50"
+                                            height="70" style="object-fit: cover;" class="rounded shadow-sm border">
+                                    @else
+                                        <div class="bg-secondary text-white rounded d-flex align-items-center justify-content-center shadow-sm"
+                                            style="width: 50px; height: 70px; font-size: 10px;">
+                                            No Image
+                                        </div>
+                                    @endif
+                                </td>
                                 <td class="fw-semibold">{{ $book->title }}</td>
                                 <td>{{ $book->author }}</td>
 

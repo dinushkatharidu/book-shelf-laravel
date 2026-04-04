@@ -13,7 +13,7 @@
                     <h4>Edit Book 📝</h4>
                 </div>
                 <div class="card-body">
-                    <form action="/books/{{ $book->id }}" method="POST">
+                    <form action="/books/{{ $book->id }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label fw-bold">Title</label>
@@ -35,6 +35,11 @@
                             <label class="form-label fw-bold">Description</label>
                             <textarea name="description" class="form-control" rows="3">{{ $book->description }}</textarea>
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Book Cover</label>
+                            <input type="file" name="image" class="form-control">
+                        </div>
+
                         <button type="submit" class="btn btn-primary w-100 fw-bold">Update Book</button>
                         <a href="/books" class="btn btn-link w-100 mt-2 text-decoration-none">Cancel</a>
                     </form>

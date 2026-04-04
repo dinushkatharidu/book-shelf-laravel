@@ -27,12 +27,19 @@ class BookController extends Controller
         $request->validate([
             'title' => 'required|min:3',
             'author' => 'required',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048'
         ]);
+
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('books', 'public');
+        }
 
         Book::create([
             'title' => $request->title,
             'author' => $request->author,
             'description' => $request->description,
+            'image' => $imagePath,
             'user_id' => auth()->id()
         ]);
         return redirect('/books')->with('success', "Book Stored Successfuly!");
@@ -59,7 +66,7 @@ class BookController extends Controller
 
         $book = Book::findOrFail($id);
 
-        if($book->user_id !== auth()->id()){
+        if ($book->user_id !== auth()->id()) {
             abort(403, 'Unautharized Action');
         }
 
@@ -76,7 +83,7 @@ class BookController extends Controller
     {
         $book = Book::findOrFail($id);
 
-        if($book->user_id !== auth()->id()){
+        if ($book->user_id !== auth()->id()) {
             abort(403, 'Unautharized Action!');
         }
 
