@@ -9,11 +9,23 @@ use Illuminate\Support\Facades\Auth;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $books = auth()->user()->books;
+        $search = $request->query('search');
 
-        return view('books.index', ['allBooks' => $books]);
+        $books = auth()->user()->books()
+            ->when($search, function ($query, $search){
+                return $query->where(function($q) use($search){
+                    $q->where('title', 'like', "%{$search}%")
+                        ->orWhere('author', 'like', "%{$search}%");
+                });
+            })
+            ->get();
+
+        return view('books.index', [
+            'allBooks' => $books,
+            'search' => $search
+            ]);
     }
 
     public function create()
