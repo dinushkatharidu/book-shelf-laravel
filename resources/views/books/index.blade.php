@@ -80,7 +80,6 @@
                 <tbody>
                     @foreach ($allBooks as $book)
                         <tr>
-
                             <td class="ps-4 text-muted">#{{ $book->id }}</td>
                             <td>
                                 @if ($book->image)
@@ -97,27 +96,32 @@
                             <td>{{ $book->author }}</td>
 
                             <td class="text-center">
-                                <a href="/books/{{ $book->id }}/edit" class="btn btn-sm btn-outline-info me-2">
-                                    Edit
-                                </a>
+                                <a href="/books/{{ $book->id }}/edit"
+                                    class="btn btn-sm btn-outline-info me-2">Edit</a>
                                 <form action="/books/{{ $book->id }}/delete" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-sm btn-outline-danger"
-                                        onclick="return confirm('Are You Sure?')">
-                                        Delete
-                                    </button>
+                                        onclick="return confirm('Are You Sure?')">Delete</button>
                                 </form>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+
+            
             @if ($allBooks->isEmpty())
                 <div class="py-5 text-center text-muted">
-                    <p>No any book found yet. Click "Add New Book" to start! 🚀</p>
+                    <p>No books found. 🚀</p>
                 </div>
             @endif
+        </div>
+
+        <div class="card-footer bg-white py-3">
+            <div class="d-flex justify-content-center">
+                {{ $allBooks->appends(['search' => request('search')])->links() }}
+            </div>
         </div>
     </div>
     </div>

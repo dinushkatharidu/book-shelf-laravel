@@ -20,7 +20,7 @@ class BookController extends Controller
                         ->orWhere('author', 'like', "%{$search}%");
                 });
             })
-            ->get();
+            ->paginate(10);
 
         return view('books.index', [
             'allBooks' => $books,
