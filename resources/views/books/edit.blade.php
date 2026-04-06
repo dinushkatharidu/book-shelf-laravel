@@ -15,6 +15,7 @@
                 <div class="card-body">
                     <form action="/books/{{ $book->id }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT') ...
                         <div class="mb-3">
                             <label class="form-label fw-bold">Title</label>
                             <input type="text" name="title" value="{{ $book->title }}" class="form-control"

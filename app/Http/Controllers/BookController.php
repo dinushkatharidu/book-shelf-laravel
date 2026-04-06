@@ -74,7 +74,7 @@ class BookController extends Controller
         }
 
         // return view('books.edit', ['book' => $book]);
-        return view('books.edit', compact('book', 'categories'), ['book' => $book]);
+        return view('books.edit', compact('book', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -83,6 +83,8 @@ class BookController extends Controller
         $request->validate([
             'title' => 'required|min:3',
             'author' => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|max:2048',
         ]);
 
         $book = Book::findOrFail($id);
@@ -91,13 +93,19 @@ class BookController extends Controller
             abort(403, 'Unautharized Action');
         }
 
-        $book->update([
+        $data = [
             'title' => $request->title,
             'author' => $request->author,
             'description' => $request->description,
-        ]);
+            'category_id' => $request->category_id,
+        ];
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('books', 'public');
+        }
 
-        return redirect('/books')->with('success', "Book Details Changed Successfuly");
+       $book->update($data);
+
+        return redirect('/books')->with('success', "Book Details Changed Successfully");
     }
 
     public function destroy($id)
