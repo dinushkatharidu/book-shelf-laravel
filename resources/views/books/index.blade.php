@@ -74,6 +74,7 @@
                         <th>Cover</th>
                         <th>Title</th>
                         <th>Author</th>
+                        <th>Category</th>
                         <th class="text-center">Action</th>
                     </tr>
                 </thead>
@@ -94,6 +95,11 @@
                             </td>
                             <td class="fw-semibold">{{ $book->title }}</td>
                             <td>{{ $book->author }}</td>
+                            <td>
+                                <span class="badge bg-info text-dark shadow-sm">
+                                    {{ $book->category->name ?? 'No Category' }}
+                                </span>
+                            </td>
 
                             <td class="text-center">
                                 <a href="/books/{{ $book->id }}/edit"
@@ -110,7 +116,7 @@
                 </tbody>
             </table>
 
-            
+
             @if ($allBooks->isEmpty())
                 <div class="py-5 text-center text-muted">
                     <p>No books found. 🚀</p>

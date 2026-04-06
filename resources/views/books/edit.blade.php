@@ -32,6 +32,17 @@
                             @enderror
                         </div>
                         <div class="mb-3">
+                            <label class="form-label fw-bold">Category</label>
+                            <select name="category_id" class="form-select">
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ $book->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label fw-bold">Description</label>
                             <textarea name="description" class="form-control" rows="3">{{ $book->description }}</textarea>
                         </div>

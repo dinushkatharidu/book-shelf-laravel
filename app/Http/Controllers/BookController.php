@@ -6,16 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Category;
 
 class BookController extends Controller
 {
+
+
     public function index(Request $request)
     {
         $search = $request->query('search');
 
         $books = auth()->user()->books()
-            ->when($search, function ($query, $search){
-                return $query->where(function($q) use($search){
+            ->with('category')
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
                     $q->where('title', 'like', "%{$search}%")
                         ->orWhere('author', 'like', "%{$search}%");
                 });
@@ -25,12 +29,13 @@ class BookController extends Controller
         return view('books.index', [
             'allBooks' => $books,
             'search' => $search
-            ]);
+        ]);
     }
 
     public function create()
     {
-        return view('books.create');
+        $categories = Category::all();
+        return view('books.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -39,6 +44,7 @@ class BookController extends Controller
         $request->validate([
             'title' => 'required|min:3',
             'author' => 'required',
+            'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048'
         ]);
 
@@ -52,7 +58,8 @@ class BookController extends Controller
             'author' => $request->author,
             'description' => $request->description,
             'image' => $imagePath,
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
+            'category_id' => $request->category_id,
         ]);
         return redirect('/books')->with('success', "Book Stored Successfuly!");
     }
@@ -60,12 +67,14 @@ class BookController extends Controller
     public function edit($id)
     {
         $book = Book::findOrFail($id);
+        $categories = Category::all();
 
         if ($book->user_id !== auth()->id()) {
             abort(403, 'Unauthrized Action');
         }
 
-        return view('books.edit', ['book' => $book]);
+        // return view('books.edit', ['book' => $book]);
+        return view('books.edit', compact('book', 'categories'), ['book' => $book]);
     }
 
     public function update(Request $request, $id)

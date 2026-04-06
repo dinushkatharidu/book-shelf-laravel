@@ -7,9 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     //
-    protected $fillable = ['title', 'author', 'description', 'image', 'user_id'];
+    protected $fillable = ['title', 'author', 'description', 'image', 'user_id', 'category_id'];
 
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
