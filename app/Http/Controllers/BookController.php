@@ -7,6 +7,7 @@ use App\Models\Book;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
+use App\Http\Requests\StoreBookRequest;
 
 class BookController extends Controller
 {
@@ -38,15 +39,9 @@ class BookController extends Controller
         return view('books.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
 
-        $request->validate([
-            'title' => 'required|min:3',
-            'author' => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048'
-        ]);
 
         $imagePath = null;
         if ($request->hasFile('image')) {
@@ -81,7 +76,7 @@ class BookController extends Controller
     {
 
         $request->validate([
-            'title' => 'required|min:3',
+           'title' => 'required|min:3',
             'author' => 'required',
             'category_id' => 'required|exists:categories,id',
             'image' => 'nullable|image|max:2048',
