@@ -28,12 +28,15 @@ A robust and professional personal library management system built with the **La
 Follow these steps to get the project running on your local machine:
 
 ### 1. Clone the Project
+```
 git clone https://github.com/your-username/book-shelf-laravel.git
 cd book-shelf-laravel
-
+```
 ### 2. Install Dependencies
+```
 composer install
 npm install && npm run dev
+```
 
 ### 3. Environment Configuration
 cp .env.example .env
@@ -44,13 +47,17 @@ touch database/database.sqlite
 (Update your .env file to use DB_CONNECTION=sqlite)
 
 ### 5. Run Migrations
+```
 php artisan migrate
-
+```
 ### 6. Storage Link
+```
 php artisan storage:link
-
+```
 ### 7. Start the Server
+```
 php artisan serve
+```
 (Access the app at: http://127.0.0.1:8000)
 
 ---
