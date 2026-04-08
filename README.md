@@ -72,6 +72,7 @@ php artisan serve
 
 ## 👤 Author
 **Dinushka Tharidu**
+
 Software Engineering Undergraduate at the Open University of Sri Lanka (OUSL).
 
 ---
